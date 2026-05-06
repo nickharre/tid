@@ -1,0 +1,11 @@
+# Kiro
+.kiro/
+
+# IDE
+.vscode/
+
+# Specs (internal design docs)
+specs/
+
+# OS
+.DS_Store

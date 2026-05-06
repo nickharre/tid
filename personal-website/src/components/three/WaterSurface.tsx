@@ -119,9 +119,9 @@ export default function WaterSurface() {
 
     void main() {
       // Base colors
-      vec3 deepColor = vec3(0.012, 0.031, 0.024);   // near void
-      vec3 midColor = vec3(0.035, 0.075, 0.055);    // slightly brighter
-      vec3 peakColor = vec3(0.05, 0.12, 0.08);      // wave crests
+      vec3 deepColor = vec3(0.04, 0.086, 0.16);     // deep blue
+      vec3 midColor = vec3(0.06, 0.12, 0.22);       // mid ocean blue
+      vec3 peakColor = vec3(0.08, 0.16, 0.29);      // wave crests
 
       // Distance-based depth gradient (darker at edges/distance)
       float distFromCenter = length(vUv - 0.5) * 2.0;
@@ -142,8 +142,8 @@ export default function WaterSurface() {
       // Brighter in troughs (light concentrates in valleys)
       float troughBoost = (1.0 - elevNorm) * 0.7 + 0.3;
       vec3 causticColor = mix(
-        vec3(0.0, 1.0, 0.64) * 0.4,   // green biolum
-        vec3(0.0, 0.9, 1.0) * 0.3,    // cyan accent
+        vec3(0.25, 0.78, 1.0) * 0.35,    // pure blue biolum
+        vec3(0.44, 0.72, 0.94) * 0.25,    // lighter blue
         sin(uTime * 0.3 + vUv.x * 3.0) * 0.5 + 0.5
       );
       baseColor += causticColor * causticMask * troughBoost * depthFade;
@@ -152,7 +152,7 @@ export default function WaterSurface() {
       vec3 viewDir = normalize(cameraPosition - vWorldPos);
       float fresnel = 1.0 - max(dot(vNormal, viewDir), 0.0);
       fresnel = pow(fresnel, 3.0);
-      vec3 fresnelColor = vec3(0.0, 1.0, 0.64) * 0.25;
+      vec3 fresnelColor = vec3(0.25, 0.78, 1.0) * 0.2;
       baseColor += fresnelColor * fresnel;
 
       // Final alpha — fade to invisible at edges (no visible boundary)

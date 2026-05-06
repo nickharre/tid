@@ -5,22 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        void: '#030806',
-        deep: '#0a1210',
-        water: '#0f1f1a',
+        void: '#0a1628',
+        deep: '#0f1f3a',
+        water: '#142a4a',
         text: {
-          DEFAULT: '#d4e8df',
-          dim: '#5a7a6d',
+          DEFAULT: '#d4e4f0',
+          dim: '#7a9ab8',
         },
         biolum: {
-          DEFAULT: '#00ffa3',
-          cyan: '#00e5ff',
-          purple: '#b388ff',
+          DEFAULT: '#40c8ff',
+          cyan: '#70b8f0',
+          purple: '#a78bfa',
         },
-        warm: '#ff6b35',
+        warm: '#e8b84a',
       },
       fontFamily: {
-        display: ['Syne', 'system-ui', 'sans-serif'],
+        display: ['Bebas Neue', 'Arial Narrow', 'sans-serif'],
         body: ['Space Grotesk', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },

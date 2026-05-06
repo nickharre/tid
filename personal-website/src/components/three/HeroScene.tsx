@@ -32,14 +32,16 @@ export default function HeroScene() {
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 3, 8], fov: 55 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
+        style={{ background: '#0a1628' }}
       >
         <Suspense fallback={null}>
+          <color attach="background" args={['#0a1628']} />
           <HeroLighting />
           <WaterSurface />
           <AbyssParticles count={150} />
           <HeroCameraController />
-          <fog attach="fog" args={['#030806', 4, 18]} />
+          <fog attach="fog" args={['#0a1628', 6, 22]} />
           <Preload all />
         </Suspense>
       </Canvas>

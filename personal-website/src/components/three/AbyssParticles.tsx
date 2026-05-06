@@ -15,7 +15,7 @@ interface Props {
  */
 export default function AbyssParticles({
   count = 150,
-  color = '#00ffa3',
+  color = '#40c8ff',
   spread = 20,
   yRange = [-2, 6],
 }: Props) {

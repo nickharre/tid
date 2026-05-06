@@ -1,52 +1,36 @@
 ---
-title: "Totara — Spec-Driven Development Team"
-description: "Seven AI agents. Structured handoffs. A full development pipeline from idea to production — rooted in craft, built to endure."
-tags: ["AI Agents", "Developer Tooling", "Kiro", "Claude Code", "Process Design"]
-liveUrl: "https://nickharre.github.io/totara/"
+title: "Totara"
+description: "A multi-agent development team framework. Seven AI agents with structured handoffs and quality gates that take features from idea to production."
+tags: ["AI Agents", "Product Development", "Systems Design", "Open Source"]
 sourceUrl: "https://github.com/nickharre/totara"
 featured: true
 order: 2
 ---
 
-# Totara — Spec-Driven Development Team
+# Totara
 
-Named after a native New Zealand podocarp that lives over a thousand years. The metaphor is the point: software built with this team is rooted in craft and built to endure. Totara turns your AI coding assistant into a structured development team — seven agents, six quality gates, zero shortcuts.
+Named after the Tōtara tree, a native New Zealand podocarp that lives over 1,000 years. Like the tree, software built with this framework is rooted in craft, built to endure.
 
-## Why This Exists
+## What It Is
 
-Most AI coding workflows are chaotic. You ask your assistant to build something, it builds something, and you ship it hoping nothing breaks. There's no requirements phase. No design review. No one checking whether the acceptance criteria were actually met.
+A complete multi-agent team that turns rough ideas into shipped, tested, documented software through structured handoffs and quality gates. Seven specialized agents, each with a distinct role, operating principles, and collaboration protocol.
 
-Totara imposes structure. Every phase has a fitness gate. Every handoff is verified. Every decision is documented. It's the process discipline that separates software that ships right from software that ships fast and breaks slowly.
+## Why It Exists
 
-## The Pipeline
+Most AI coding tools are single-agent: one model doing everything. That's like having one person be the PM, designer, developer, tester, and ops engineer. It works for small things. It falls apart for anything real.
 
-Six phases, each owned by a named agent carrying deep expertise and strong opinions about their craft:
+Totara separates concerns the way real teams do. Each agent has a specialty, a quality bar, and a defined handoff protocol. The result is software that's been through the same rigour as a well-run team would produce.
 
-- **Requirements** — Marty (Product Manager). EARS notation, testable acceptance criteria, explicit scope boundaries.
-- **UX Design** — Dieter (Designer). Every screen, every state — default, loading, empty, error, success, partial.
-- **Architecture** — Margaret + Charity. Components, data model, API surface, security review.
-- **Implementation** — Margaret (Developer). Boring, correct, maintainable code that works when it matters.
-- **Testing** — James (Tester). Every AC has a passing test. No open Sev1/Sev2.
-- **Release** — Joint sign-off. SLOs live, alerts tested, rollback rehearsed, security scans clean.
+## The Agents
 
-Two meta-agents run across all phases: **Gene** (Delivery Lead) gates every handoff, and **Peter** (Talent Manager) audits capability gaps before work begins.
-
-## Highlights
-
-- **Six quality gates** — no half-deliverables pass downstream, enforced at every phase transition
-- **Issue triage taxonomy** — bugs routed by root cause, not symptom, to the right owner
-- **Living documentation** — a product-level spec aggregates shipped features; tech debt lives in a register, not TODO comments
-- **Capability audits** — gaps identified proactively before implementation starts, not discovered mid-sprint
-- **Continuous learning loop** — user feedback and recurring issues become permanent team improvements
-- **Two platforms** — works as a Kiro Power or a Claude Code CLAUDE.md drop-in
-
-## Tech Stack
-
-- Kiro (AI IDE with Powers support)
-- Claude Code (CLAUDE.md agent configuration)
-- Seven bespoke agent personas with structured handoff protocols
-- MIT licensed, open source
+- **Product Manager** — owns the "what" and "why"
+- **Designer** — owns user experience and accessibility
+- **Developer** — owns architecture and implementation
+- **DevOps Engineer** — owns infrastructure and reliability
+- **Tester** — owns quality and release validation
+- **Delivery Lead** — gates handoffs, triages issues
+- **Talent Manager** — audits capability, fills gaps
 
 ## What I Learned
 
-The hardest part was resisting the urge to make the agents do everything. The discipline is in the boundaries — each agent owns a slice, hands off with verified criteria, and trusts the next role to do its job. The structure is the feature. Without it, you don't have a team. You just have a very capable assistant who sometimes forgets what it was trying to build.
+The interesting challenge wasn't making agents write code. It was designing the handoff protocols, quality gates, and routing logic that prevent the kind of drift and rework that plagues real teams. The framework is as much about process design as it is about AI.

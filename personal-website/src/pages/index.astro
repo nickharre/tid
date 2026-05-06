@@ -24,11 +24,11 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
     <!-- Text overlay — emerges from the water, lit by bioluminescence below -->
     <div class="relative z-10 text-center px-8 w-full hero-text-container mt-[10vh]">
-      <h1 class="font-display font-extrabold text-fluid-hero tracking-tight leading-none mb-6 hero-caustic-text">
-        NICK<br/>HARRÉ
+      <h1 class="font-display text-fluid-hero tracking-tight leading-[1.1] mb-6 hero-outline-text">
+        Build things<br/>like they <span class="emphasis-word">matter</span>
       </h1>
-      <p class="text-fluid-lg max-w-lg mx-auto leading-relaxed hero-subtitle">
-        I build things like they <span class="emphasis-word">matter</span>.
+      <p class="text-fluid-base max-w-lg mx-auto leading-relaxed hero-subtitle tracking-wide">
+        Nick Harré
       </p>
     </div>
 
@@ -43,14 +43,9 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
     <!-- Submersion overlay — water closes over you as you scroll past hero -->
     <div id="submersion-overlay" class="absolute inset-0 z-20 pointer-events-none opacity-0 transition-opacity duration-100"
-         style="background: radial-gradient(ellipse at center, transparent 30%, #030806 80%);">
+         style="background: radial-gradient(ellipse at center, transparent 30%, #0a1628 80%);">
     </div>
   </section>
-
-  <!-- Depth transition — gradual darkening that bridges hero into content -->
-  <div class="relative z-[2] -mt-1">
-    <div class="h-48 bg-gradient-to-b from-transparent via-void/80 to-void" />
-  </div>
 
   <!-- Ambient particles — underwater sediment that persists through all zones -->
   <div class="ambient-particles fixed inset-0 pointer-events-none z-[1]" aria-hidden="true">
@@ -71,11 +66,11 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- TWILIGHT (200m) — About -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <section id="twilight" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, var(--void), #020604);">
+  <section id="twilight" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #0a1628, #081320);">
     <div class="max-w-3xl mx-auto w-full">
       <!-- Depth marker -->
       <div class="flex items-center gap-3 mb-16">
-        <div class="w-12 h-px bg-gradient-to-r from-biolum/60 to-transparent shadow-[0_0_8px_var(--glow-green)]" />
+        <div class="w-12 h-px bg-gradient-to-r from-biolum/60 to-transparent shadow-[0_0_8px_var(--glow)]" />
         <span class="text-xs font-mono text-text-dim tracking-widest">200m — TWILIGHT ZONE</span>
       </div>
 
@@ -84,7 +79,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         <div class="flex justify-center md:justify-start">
           <div class="relative">
             <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-biolum/30
-                        shadow-[0_0_30px_var(--glow-green)]">
+                        shadow-[0_0_30px_var(--glow)]">
               <!-- Placeholder -->
               <div class="w-full h-full bg-gradient-to-br from-deep to-water flex items-center justify-center">
                 <span class="text-3xl font-display font-bold text-biolum/60">NH</span>
@@ -117,7 +112,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         {['Product Strategy', 'AI/ML', 'Team Building', 'Systems Thinking', 'Creative Technology', 'Design Systems', 'Platform Architecture', 'Startups'].map((tag, i) => (
           <span
             class="drift absolute px-4 py-2 text-sm border border-text-dim/20 rounded-full text-text-dim
-                   hover:border-biolum hover:text-biolum hover:shadow-[0_0_15px_var(--glow-green)]
+                   hover:border-biolum hover:text-biolum hover:shadow-[0_0_15px_var(--glow)]
                    transition-all duration-500 cursor-default"
             style={`
               animation-delay: ${i * 0.5}s;
@@ -136,7 +131,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- MIDNIGHT (1000m) — Projects -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <section id="midnight" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #020604, #010402);">
+  <section id="midnight" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #081320, #06101a);">
     <div class="max-w-4xl mx-auto w-full">
       <!-- Depth marker -->
       <div class="flex items-center gap-3 mb-16">
@@ -166,7 +161,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
               href={`/projects/${project.slug}`}
               class="group organism relative block p-8 rounded-xl bg-deep/50 border border-text-dim/10
                      hover:border-biolum/30 transition-all duration-700
-                     hover:shadow-[0_0_40px_var(--glow-green),inset_0_0_40px_var(--glow-green)]"
+                     hover:shadow-[0_0_40px_var(--glow),inset_0_0_40px_var(--glow)]"
               style={`--organism-delay: ${i * 0.7}s; ${i % 2 !== 0 ? 'margin-left: 2rem;' : 'margin-right: 2rem;'}`}
             >
               <!-- Creeping border glow (idle animation) -->
@@ -206,7 +201,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- ABYSS (3000m) — Blog -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <section id="abyss" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #010402, #010301);">
+  <section id="abyss" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #06101a, #050d16);">
     <div class="max-w-3xl mx-auto w-full">
       <!-- Depth marker -->
       <div class="flex items-center gap-3 mb-16">
@@ -269,7 +264,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- TRENCH (6000m) — Contact -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <section id="trench" class="depth-zone py-32 min-h-[80vh]" style="background: #010301;">
+  <section id="trench" class="depth-zone py-32 min-h-[80vh]" style="background: #050d16;">
     <div class="max-w-2xl mx-auto w-full text-center">
       <!-- Depth marker -->
       <div class="flex items-center justify-center gap-3 mb-16">
@@ -297,7 +292,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
           target="_blank"
           rel="noopener noreferrer"
           class="group p-3 rounded-full border border-text-dim/20
-                 hover:border-biolum/50 hover:shadow-[0_0_20px_var(--glow-green)]
+                 hover:border-biolum/50 hover:shadow-[0_0_20px_var(--glow)]
                  transition-all duration-500"
           aria-label="GitHub"
         >
@@ -397,7 +392,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         var dot = document.createElement('div');
         dot.style.cssText = 'position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;' +
           'background:var(--biolum);opacity:0.5;' +
-          'box-shadow:0 0 6px var(--biolum),0 0 12px var(--glow-green);' +
+          'box-shadow:0 0 6px var(--biolum),0 0 12px var(--glow);' +
           'left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
           'transition:opacity 1.5s ease-out,transform 1.5s ease-out;';
         trailContainer.appendChild(dot);
@@ -437,7 +432,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     // ═══ Page transition — darken on navigate ═══
     (function() {
       var overlay = document.createElement('div');
-      overlay.style.cssText = 'position:fixed;inset:0;background:#030806;opacity:0;pointer-events:none;' +
+      overlay.style.cssText = 'position:fixed;inset:0;background:#0a1628;opacity:0;pointer-events:none;' +
         'z-index:99999;transition:opacity 0.3s ease-in;';
       document.body.appendChild(overlay);
 
@@ -458,25 +453,22 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   </script>
 
   <style>
-    /* ═══ Hero caustic text effect ═══ */
-    .hero-caustic-text {
-      position: relative;
-      background: linear-gradient(
-        90deg,
-        rgba(212, 232, 223, 0.85) 0%,
-        var(--biolum) 20%,
-        rgba(212, 232, 223, 0.9) 40%,
-        rgba(0, 255, 163, 0.7) 60%,
-        rgba(212, 232, 223, 0.85) 80%,
-        var(--biolum) 100%
-      );
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: caustic-sweep 8s ease-in-out infinite;
-      filter: drop-shadow(0 0 30px rgba(0, 255, 163, 0.3))
-              drop-shadow(0 4px 60px rgba(0, 255, 163, 0.15));
+    /* ═══ Hero outline text — stroke only, no fill ═══ */
+    .hero-outline-text {
+      font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--text);
+      text-transform: uppercase;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      filter: drop-shadow(0 0 20px rgba(64, 200, 255, 0.15));
+    }
+
+    .hero-outline-text .emphasis-word {
+      -webkit-text-stroke-color: var(--biolum);
+      color: transparent;
+      filter: drop-shadow(0 0 12px var(--glow));
+      font-style: normal;
     }
 
     @keyframes caustic-sweep {
@@ -487,17 +479,12 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     .hero-subtitle {
       color: var(--text-dim);
       opacity: 0.7;
-      text-shadow: 0 0 20px rgba(0, 255, 163, 0.1);
+      text-shadow: 0 0 15px rgba(64, 200, 255, 0.08);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 300;
     }
 
-    /* Emphasis word in tagline */
-    .emphasis-word {
-      color: var(--biolum);
-      -webkit-text-fill-color: var(--biolum);
-      opacity: 1;
-      text-shadow: 0 0 12px var(--glow-green);
-      font-style: italic;
-    }
+    /* Emphasis word — handled in .hero-outline-text .emphasis-word above */
 
     /* ═══ Section heading single-pulse glow ═══ */
     .section-heading {
@@ -510,7 +497,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
     @keyframes heading-glow {
       0% { text-shadow: none; }
-      30% { text-shadow: 0 0 20px var(--glow-green), 0 0 40px var(--glow-green); }
+      30% { text-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow); }
       100% { text-shadow: none; }
     }
 
@@ -557,10 +544,8 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
     /* ═══ Reduced motion ═══ */
     @media (prefers-reduced-motion: reduce) {
-      .hero-caustic-text {
-        animation: none;
-        background: none;
-        -webkit-text-fill-color: var(--text);
+      .hero-outline-text {
+        filter: none;
       }
       .section-heading {
         animation: none;
@@ -581,7 +566,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
     /* ═══ Dive indicator glow ═══ */
     .dive-glow {
-      text-shadow: 0 0 10px var(--glow-green), 0 0 20px var(--glow-green);
+      text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
     }
 
     /* ═══ Ambient underwater particles (CSS-only) ═══ */
@@ -597,7 +582,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
       border-radius: 50%;
       background: var(--biolum);
       opacity: 0.4;
-      box-shadow: 0 0 6px var(--biolum), 0 0 12px var(--glow-green);
+      box-shadow: 0 0 6px var(--biolum), 0 0 12px var(--glow);
       animation: ambient-drift var(--duration, 20s) ease-in-out infinite;
       animation-delay: var(--delay, 0s);
     }

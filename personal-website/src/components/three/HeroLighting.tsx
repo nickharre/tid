@@ -23,11 +23,11 @@ export default function HeroLighting() {
 
   return (
     <>
-      {/* Moonlight from above — cold, dim */}
+      {/* Moonlight from above — cold blue */}
       <directionalLight
         position={[2, 10, 4]}
-        intensity={0.1}
-        color="#a0c4ff"
+        intensity={0.12}
+        color="#6090cc"
       />
 
       {/* Main bioluminescent light — follows cursor */}
@@ -35,31 +35,31 @@ export default function HeroLighting() {
         ref={mainLightRef}
         position={[0, 4, 2]}
         intensity={1.5}
-        color="#00ffa3"
+        color="#40c8ff"
         distance={12}
         decay={2}
       />
 
-      {/* Deep cyan accent */}
+      {/* Deep blue accent */}
       <pointLight
         position={[-6, -1, -4]}
         intensity={0.6}
-        color="#00e5ff"
+        color="#70b8f0"
         distance={10}
         decay={2}
       />
 
-      {/* Subtle warm vent glow from below */}
+      {/* Warm amber glow from below — like jellyfish bells */}
       <pointLight
         position={[4, -3, 2]}
-        intensity={0.3}
-        color="#ff6b35"
+        intensity={0.4}
+        color="#e8b84a"
         distance={8}
         decay={2}
       />
 
       {/* Ambient — very dim, just enough to not be pure black */}
-      <ambientLight intensity={0.03} color="#0a2018" />
+      <ambientLight intensity={0.04} color="#0a1628" />
     </>
   );
 }

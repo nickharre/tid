@@ -67,7 +67,10 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
       <!-- Narrative -->
       <div class="max-w-2xl space-y-6">
-        <p class="text-fluid-lg text-text leading-relaxed">
+        <!-- Visual anchor — glowing line -->
+        <div class="w-24 h-px bg-gradient-to-r from-warm via-warm/60 to-transparent shadow-[0_0_12px_rgba(232,184,74,0.3)] mb-10" />
+
+        <p class="text-fluid-2xl text-text leading-tight font-display uppercase tracking-wide" style="-webkit-text-stroke: 0.02em var(--text); color: transparent;">
           I build products that solve real problems, and I build them like they matter.
         </p>
         <p class="text-text-dim leading-relaxed">
@@ -108,7 +111,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         <span class="text-xs font-mono text-text-dim tracking-widest">1000m — MIDNIGHT ZONE</span>
       </div>
 
-      <h2 class="font-display text-fluid-2xl text-text mb-4 section-heading">
+      <h2 class="font-display text-fluid-3xl text-text mb-4 section-heading section-outline">
         Organisms
       </h2>
       <p class="text-text-dim mb-16 max-w-lg">
@@ -178,7 +181,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         <span class="text-xs font-mono text-text-dim tracking-widest">3000m — ABYSSAL ZONE</span>
       </div>
 
-      <h2 class="font-display text-fluid-2xl text-text mb-4 section-heading">
+      <h2 class="font-display text-fluid-3xl text-text mb-4 section-heading section-outline">
         Transmissions from the deep
       </h2>
       <p class="text-text-dim mb-16 max-w-lg">
@@ -250,7 +253,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         <div class="absolute inset-[38%] rounded-full bg-warm shadow-[0_0_30px_var(--warm)]" />
       </div>
 
-      <h2 class="font-display text-fluid-xl text-text mb-12 section-heading">
+      <h2 class="font-display text-fluid-2xl text-text mb-12 section-heading section-outline">
         Let's talk.
       </h2>
 
@@ -359,9 +362,9 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
         if (dist < 8) return;
 
         var dot = document.createElement('div');
-        dot.style.cssText = 'position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;' +
-          'background:var(--biolum);opacity:0.5;' +
-          'box-shadow:0 0 6px var(--biolum),0 0 12px var(--glow);' +
+        dot.style.cssText = 'position:absolute;width:5px;height:5px;border-radius:50%;pointer-events:none;' +
+          'background:var(--warm);opacity:0.6;' +
+          'box-shadow:0 0 6px var(--warm),0 0 14px rgba(232,184,74,0.3);' +
           'left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
           'transition:opacity 1.5s ease-out,transform 1.5s ease-out;';
         trailContainer.appendChild(dot);
@@ -445,6 +448,13 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     /* ═══ Section heading single-pulse glow ═══ */
     .section-heading {
       transition: text-shadow 0.6s ease-out;
+    }
+
+    .section-outline {
+      color: transparent;
+      -webkit-text-stroke: 0.02em var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .section-heading.heading-pulse {

@@ -5,7 +5,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://your-site.vercel.app',
+  site: 'https://nickharre.github.io',
+  base: '/tid',
   integrations: [
     react(),
     tailwind(),

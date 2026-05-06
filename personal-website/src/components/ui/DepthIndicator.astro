@@ -1,0 +1,110 @@
+---
+const zones = [
+  { id: 'surface', label: '0m', depth: 'Surface' },
+  { id: 'twilight', label: '200m', depth: 'Twilight' },
+  { id: 'midnight', label: '1000m', depth: 'Midnight' },
+  { id: 'abyss', label: '3000m', depth: 'Abyss' },
+  { id: 'trench', label: '6000m', depth: 'Trench' },
+];
+---
+
+<nav
+  class="fixed left-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-8"
+  aria-label="Depth navigation"
+>
+  <!-- Vertical line -->
+  <div class="absolute inset-0 w-px bg-text-dim/20 left-1/2 -translate-x-1/2" />
+
+  <!-- Progress glow (fills as you scroll) -->
+  <div
+    id="depth-progress"
+    class="absolute top-0 w-px left-1/2 -translate-x-1/2 transition-all duration-300"
+    style="height: 0%; background: linear-gradient(to bottom, var(--biolum), var(--biolum-cyan));"
+  />
+
+  {zones.map((zone) => (
+    <a
+      href={`#${zone.id}`}
+      class="depth-dot group relative flex items-center justify-center w-8 h-8 z-10"
+      aria-label={`Jump to ${zone.depth} zone`}
+      data-zone={zone.id}
+    >
+      <span class="w-2 h-2 rounded-full bg-text-dim/40 group-hover:bg-biolum group-hover:shadow-[0_0_10px_var(--biolum)]
+                   transition-all duration-300" />
+      <span class="absolute left-10 text-xs text-text-dim opacity-0 group-hover:opacity-100
+                   transition-opacity duration-200 whitespace-nowrap font-mono">
+        {zone.label} — {zone.depth}
+      </span>
+    </a>
+  ))}
+</nav>
+
+<!-- Mobile: thin glow line on left -->
+<div class="fixed left-0 top-0 bottom-0 w-px md:hidden z-50 bg-text-dim/10">
+  <div
+    id="depth-progress-mobile"
+    class="w-full transition-all duration-300"
+    style="height: 0%; background: linear-gradient(to bottom, var(--biolum), var(--biolum-cyan));"
+  />
+</div>
+
+<!-- Surface button (appears after scrolling past hero) -->
+<a
+  href="#surface"
+  id="surface-btn"
+  class="fixed top-6 right-6 z-50 w-10 h-10 rounded-full flex items-center justify-center
+         opacity-0 pointer-events-none transition-all duration-500
+         border border-biolum/30 hover:border-biolum hover:shadow-[0_0_20px_var(--glow-green)]"
+  aria-label="Return to surface"
+>
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-biolum">
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+</a>
+
+<script>
+  function updateDepth() {
+    const scrollY = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = Math.min(scrollY / maxScroll, 1) * 100;
+
+    const progressEl = document.getElementById('depth-progress');
+    const progressMobile = document.getElementById('depth-progress-mobile');
+    const surfaceBtn = document.getElementById('surface-btn');
+
+    if (progressEl) progressEl.style.height = `${progress}%`;
+    if (progressMobile) progressMobile.style.height = `${progress}%`;
+
+    // Show surface button after scrolling past first viewport
+    if (surfaceBtn) {
+      if (scrollY > window.innerHeight * 0.8) {
+        surfaceBtn.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        surfaceBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    // Highlight active zone dot
+    const zones = ['surface', 'twilight', 'midnight', 'abyss', 'trench'];
+    const dots = document.querySelectorAll('.depth-dot');
+
+    zones.forEach((zone, i) => {
+      const el = document.getElementById(zone);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const dot = dots[i]?.querySelector('span:first-child');
+      if (!dot) return;
+
+      if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+        dot.classList.add('bg-biolum', 'shadow-[0_0_10px_var(--biolum)]');
+        dot.classList.remove('bg-text-dim/40');
+      } else {
+        dot.classList.remove('bg-biolum', 'shadow-[0_0_10px_var(--biolum)]');
+        dot.classList.add('bg-text-dim/40');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateDepth, { passive: true });
+  updateDepth();
+</script>

@@ -1,0 +1,643 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import DepthIndicator from '@components/ui/DepthIndicator.astro';
+import HeroScene from '@components/three/HeroScene.tsx';
+import { getCollection } from 'astro:content';
+import { formatDate, getReadingTime } from '@lib/utils';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Nick Harré | Product & Technology">
+  <DepthIndicator />
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SURFACE (0m) — Hero -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="surface" class="relative h-[120vh] flex items-center justify-center overflow-x-clip overflow-y-visible">
+    <!-- 3D Water Surface -->
+    <HeroScene client:load />
+
+    <!-- Text overlay — emerges from the water, lit by bioluminescence below -->
+    <div class="relative z-10 text-center px-8 w-full hero-text-container mt-[10vh]">
+      <h1 class="font-display font-extrabold text-fluid-hero tracking-tight leading-none mb-6 hero-caustic-text">
+        NICK<br/>HARRÉ
+      </h1>
+      <p class="text-fluid-lg max-w-lg mx-auto leading-relaxed hero-subtitle">
+        I build things like they <span class="emphasis-word">matter</span>.
+      </p>
+    </div>
+
+    <!-- Dive indicator -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
+      <span class="text-text-dim text-xs font-mono tracking-widest uppercase dive-glow">Dive</span>
+      <div class="relative">
+        <div class="w-px h-12 bg-gradient-to-b from-biolum to-transparent animate-breathe" />
+        <div class="absolute top-0 w-px h-12 bg-gradient-to-b from-biolum/30 to-transparent animate-breathe" style="animation-delay: 0.8s;" />
+      </div>
+    </div>
+
+    <!-- Submersion overlay — water closes over you as you scroll past hero -->
+    <div id="submersion-overlay" class="absolute inset-0 z-20 pointer-events-none opacity-0 transition-opacity duration-100"
+         style="background: radial-gradient(ellipse at center, transparent 30%, #030806 80%);">
+    </div>
+  </section>
+
+  <!-- Depth transition — gradual darkening that bridges hero into content -->
+  <div class="relative z-[2] -mt-1">
+    <div class="h-48 bg-gradient-to-b from-transparent via-void/80 to-void" />
+  </div>
+
+  <!-- Ambient particles — underwater sediment that persists through all zones -->
+  <div class="ambient-particles fixed inset-0 pointer-events-none z-[1]" aria-hidden="true">
+    <div class="particle" style="left: 5%; top: 20%; --drift-x: 30px; --drift-y: -40px; --duration: 18s; --delay: 0s;" />
+    <div class="particle" style="left: 15%; top: 60%; --drift-x: -20px; --drift-y: -30px; --duration: 22s; --delay: 2s;" />
+    <div class="particle" style="left: 25%; top: 35%; --drift-x: 25px; --drift-y: -50px; --duration: 20s; --delay: 4s;" />
+    <div class="particle" style="left: 40%; top: 75%; --drift-x: -15px; --drift-y: -35px; --duration: 25s; --delay: 1s;" />
+    <div class="particle" style="left: 55%; top: 45%; --drift-x: 20px; --drift-y: -45px; --duration: 19s; --delay: 3s;" />
+    <div class="particle" style="left: 65%; top: 80%; --drift-x: -25px; --drift-y: -30px; --duration: 23s; --delay: 5s;" />
+    <div class="particle" style="left: 75%; top: 25%; --drift-x: 15px; --drift-y: -40px; --duration: 21s; --delay: 2.5s;" />
+    <div class="particle" style="left: 85%; top: 55%; --drift-x: -30px; --drift-y: -35px; --duration: 24s; --delay: 1.5s;" />
+    <div class="particle" style="left: 92%; top: 40%; --drift-x: 20px; --drift-y: -50px; --duration: 17s; --delay: 4.5s;" />
+    <div class="particle lg" style="left: 30%; top: 50%; --drift-x: -10px; --drift-y: -25px; --duration: 28s; --delay: 0.5s;" />
+    <div class="particle lg" style="left: 70%; top: 65%; --drift-x: 15px; --drift-y: -30px; --duration: 26s; --delay: 3.5s;" />
+    <div class="particle lg" style="left: 50%; top: 30%; --drift-x: -20px; --drift-y: -40px; --duration: 30s; --delay: 6s;" />
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TWILIGHT (200m) — About -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="twilight" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, var(--void), #020604);">
+    <div class="max-w-3xl mx-auto w-full">
+      <!-- Depth marker -->
+      <div class="flex items-center gap-3 mb-16">
+        <div class="w-12 h-px bg-gradient-to-r from-biolum/60 to-transparent shadow-[0_0_8px_var(--glow-green)]" />
+        <span class="text-xs font-mono text-text-dim tracking-widest">200m — TWILIGHT ZONE</span>
+      </div>
+
+      <div class="grid md:grid-cols-[200px_1fr] gap-12 items-start">
+        <!-- Photo with bioluminescent ring -->
+        <div class="flex justify-center md:justify-start">
+          <div class="relative">
+            <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-biolum/30
+                        shadow-[0_0_30px_var(--glow-green)]">
+              <!-- Placeholder -->
+              <div class="w-full h-full bg-gradient-to-br from-deep to-water flex items-center justify-center">
+                <span class="text-3xl font-display font-bold text-biolum/60">NH</span>
+              </div>
+            </div>
+            <!-- Pulsing ring -->
+            <div class="absolute inset-0 rounded-full border border-biolum/20 animate-breathe" />
+          </div>
+        </div>
+
+        <!-- Narrative -->
+        <div class="space-y-6">
+          <p class="text-fluid-lg text-text leading-relaxed">
+            I build products that solve real problems, and I build them like they matter.
+          </p>
+          <p class="text-text-dim leading-relaxed">
+            I care about craft. The kind that shows in elegant product experiences,
+            thoughtful systems, and teams that ship with pride.
+          </p>
+          <p class="text-text-dim leading-relaxed">
+            When I'm not shipping, I'm thinking about what makes products stick.
+            The problems worth solving, the details that earn trust, and the craft
+            that separates signal from noise.
+          </p>
+        </div>
+      </div>
+
+      <!-- Floating skill tags — scattered like plankton -->
+      <div class="mt-16 relative h-32 md:h-24">
+        {['Product Strategy', 'AI/ML', 'Team Building', 'Systems Thinking', 'Creative Technology', 'Design Systems', 'Platform Architecture', 'Startups'].map((tag, i) => (
+          <span
+            class="drift absolute px-4 py-2 text-sm border border-text-dim/20 rounded-full text-text-dim
+                   hover:border-biolum hover:text-biolum hover:shadow-[0_0_15px_var(--glow-green)]
+                   transition-all duration-500 cursor-default"
+            style={`
+              animation-delay: ${i * 0.5}s;
+              animation-duration: ${6 + i * 0.7}s;
+              left: ${(i * 12.5) % 85}%;
+              top: ${[0, 45, 15, 60, 5, 50, 25, 70][i]}%;
+            `}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MIDNIGHT (1000m) — Projects -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="midnight" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #020604, #010402);">
+    <div class="max-w-4xl mx-auto w-full">
+      <!-- Depth marker -->
+      <div class="flex items-center gap-3 mb-16">
+        <div class="w-12 h-px bg-gradient-to-r from-biolum-cyan/60 to-transparent shadow-[0_0_8px_var(--glow-cyan)]" />
+        <span class="text-xs font-mono text-text-dim tracking-widest">1000m — MIDNIGHT ZONE</span>
+      </div>
+
+      <h2 class="font-display font-bold text-fluid-2xl text-text mb-4 section-heading">
+        Organisms
+      </h2>
+      <p class="text-text-dim mb-16 max-w-lg">
+        Each project is a living thing. Built, released, evolving.
+      </p>
+
+      {projects.length === 0 ? (
+        <div class="text-center py-24">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full border border-biolum-cyan/20 animate-breathe
+                      flex items-center justify-center">
+            <div class="w-3 h-3 rounded-full bg-biolum-cyan/40" />
+          </div>
+          <p class="text-text-dim">Workshop is open. Organisms incubating.</p>
+        </div>
+      ) : (
+        <div class="grid gap-8">
+          {projects.map((project, i) => (
+            <a
+              href={`/projects/${project.slug}`}
+              class="group organism relative block p-8 rounded-xl bg-deep/50 border border-text-dim/10
+                     hover:border-biolum/30 transition-all duration-700
+                     hover:shadow-[0_0_40px_var(--glow-green),inset_0_0_40px_var(--glow-green)]"
+              style={`--organism-delay: ${i * 0.7}s; ${i % 2 !== 0 ? 'margin-left: 2rem;' : 'margin-right: 2rem;'}`}
+            >
+              <!-- Creeping border glow (idle animation) -->
+              <div class="organism-border absolute inset-0 rounded-xl opacity-30 group-hover:opacity-100 transition-opacity duration-700" />
+
+              <div class="relative z-10">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                  <h3 class="font-display font-bold text-fluid-lg text-text group-hover:text-biolum transition-colors duration-500">
+                    {project.data.title}
+                  </h3>
+                  <!-- Glowing orb indicator — drifts slightly -->
+                  <div class="organism-orb w-3 h-3 rounded-full bg-biolum/40 group-hover:bg-biolum
+                              group-hover:shadow-[0_0_12px_var(--biolum)] transition-all duration-500 mt-2 shrink-0"
+                       style={`--drift-delay: ${i * 1.2}s;`} />
+                </div>
+
+                <p class="text-text-dim mb-6 leading-relaxed">
+                  {project.data.description}
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  {project.data.tags.map((tag: string) => (
+                    <span class="text-xs px-2 py-1 rounded border border-text-dim/20 text-text-dim
+                                 group-hover:border-biolum-cyan/30 group-hover:text-biolum-cyan transition-all duration-500">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ABYSS (3000m) — Blog -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="abyss" class="depth-zone py-32 min-h-screen" style="background: linear-gradient(to bottom, #010402, #010301);">
+    <div class="max-w-3xl mx-auto w-full">
+      <!-- Depth marker -->
+      <div class="flex items-center gap-3 mb-16">
+        <div class="w-12 h-px bg-gradient-to-r from-biolum-purple/60 to-transparent shadow-[0_0_8px_rgba(179,136,255,0.15)]" />
+        <span class="text-xs font-mono text-text-dim tracking-widest">3000m — ABYSSAL ZONE</span>
+      </div>
+
+      <h2 class="font-display font-bold text-fluid-2xl text-text mb-4 section-heading">
+        Transmissions from the deep
+      </h2>
+      <p class="text-text-dim mb-16 max-w-lg">
+        Thoughts, breakdowns, and signals from the abyss.
+      </p>
+
+      {posts.length === 0 ? (
+        <div class="text-center py-24">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full border border-biolum-purple/20 animate-breathe
+                      flex items-center justify-center">
+            <div class="w-3 h-3 rounded-full bg-biolum-purple/40" />
+          </div>
+          <p class="text-text-dim">Seeds planted. Transmissions incoming.</p>
+        </div>
+      ) : (
+        <div class="space-y-6">
+          {posts.map((post, i) => (
+            <a
+              href={`/blog/${post.slug}`}
+              class="group block p-6 rounded-xl border border-text-dim/10 bg-deep/30
+                     hover:border-biolum-purple/30 transition-all duration-700
+                     hover:shadow-[0_0_30px_rgba(179,136,255,0.1)]"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <h3 class="font-display font-semibold text-fluid-lg text-text
+                             group-hover:text-biolum-purple transition-colors duration-500 mb-2">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-text-dim text-sm mb-3 line-clamp-2">
+                    {post.data.description}
+                  </p>
+                  <div class="flex items-center gap-3 text-text-dim/60 text-xs font-mono">
+                    <time datetime={post.data.date.toISOString()}>
+                      {formatDate(post.data.date)}
+                    </time>
+                    <span>·</span>
+                    <span>{getReadingTime(post.body || '')}</span>
+                  </div>
+                </div>
+                <!-- Sonar ping indicator -->
+                <div class="w-2 h-2 rounded-full bg-biolum-purple/40 group-hover:bg-biolum-purple
+                            group-hover:shadow-[0_0_10px_var(--biolum-purple)] transition-all duration-500 mt-2 shrink-0" />
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TRENCH (6000m) — Contact -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="trench" class="depth-zone py-32 min-h-[80vh]" style="background: #010301;">
+    <div class="max-w-2xl mx-auto w-full text-center">
+      <!-- Depth marker -->
+      <div class="flex items-center justify-center gap-3 mb-16">
+        <div class="w-8 h-px bg-warm/40" />
+        <span class="text-xs font-mono text-text-dim tracking-widest">6000m — HADAL ZONE</span>
+        <div class="w-8 h-px bg-warm/40" />
+      </div>
+
+      <!-- Single glowing orb -->
+      <div class="relative w-24 h-24 mx-auto mb-12">
+        <div class="absolute inset-0 rounded-full bg-biolum/10 animate-breathe" />
+        <div class="absolute inset-3 rounded-full bg-biolum/20 animate-breathe" style="animation-delay: 0.5s;" />
+        <div class="absolute inset-6 rounded-full bg-biolum/40 animate-breathe" style="animation-delay: 1s;" />
+        <div class="absolute inset-[38%] rounded-full bg-biolum shadow-[0_0_30px_var(--biolum)]" />
+      </div>
+
+      <h2 class="font-display font-bold text-fluid-xl text-text mb-12 section-heading">
+        Let's talk.
+      </h2>
+
+      <!-- Social links — each with its own glow -->
+      <div class="flex items-center justify-center gap-8">
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group p-3 rounded-full border border-text-dim/20
+                 hover:border-biolum/50 hover:shadow-[0_0_20px_var(--glow-green)]
+                 transition-all duration-500"
+          aria-label="GitHub"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="text-text-dim group-hover:text-biolum transition-colors duration-500">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group p-3 rounded-full border border-text-dim/20
+                 hover:border-biolum-cyan/50 hover:shadow-[0_0_20px_var(--glow-cyan)]
+                 transition-all duration-500"
+          aria-label="LinkedIn"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="text-text-dim group-hover:text-biolum-cyan transition-colors duration-500">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group p-3 rounded-full border border-text-dim/20
+                 hover:border-biolum-purple/50 hover:shadow-[0_0_20px_rgba(179,136,255,0.15)]
+                 transition-all duration-500"
+          aria-label="Twitter / X"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="text-text-dim group-hover:text-biolum-purple transition-colors duration-500">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a
+          href="mailto:hello@example.com"
+          class="group p-3 rounded-full border border-text-dim/20
+                 hover:border-warm/50 hover:shadow-[0_0_20px_rgba(255,107,53,0.15)]
+                 transition-all duration-500"
+          aria-label="Email"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-text-dim group-hover:text-warm transition-colors duration-500">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Bottom text -->
+      <p class="mt-24 text-text-dim/40 text-xs font-mono">
+        You've reached the bottom. Not many do.
+      </p>
+    </div>
+  </section>
+
+  <!-- Scroll reveal script -->
+  <script is:inline>
+    // Submersion overlay — fades in as you scroll past hero
+    const heroSection = document.getElementById('surface');
+    const submersionOverlay = document.getElementById('submersion-overlay');
+    const ambientParticles = document.querySelector('.ambient-particles');
+
+    function updateSubmersion() {
+      if (!heroSection || !submersionOverlay) return;
+      const rect = heroSection.getBoundingClientRect();
+      const heroHeight = heroSection.offsetHeight;
+      const scrolledPast = -rect.top / heroHeight;
+      const opacity = Math.max(0, Math.min(1, (scrolledPast - 0.6) / 0.3));
+      submersionOverlay.style.opacity = String(opacity);
+
+      if (ambientParticles) {
+        ambientParticles.style.opacity = scrolledPast > 0.8 ? '1' : '0';
+      }
+    }
+
+    window.addEventListener('scroll', updateSubmersion, { passive: true });
+
+    // Hero text parallax — subtle offset from 3D
+    const heroTextContainer = document.querySelector('.hero-text-container');
+    function updateHeroParallax() {
+      if (!heroTextContainer) return;
+      const scrollY = window.scrollY;
+      const offset = scrollY * 0.3;
+      heroTextContainer.style.transform = 'translateY(' + offset + 'px)';
+    }
+    window.addEventListener('scroll', updateHeroParallax, { passive: true });
+
+    // ═══ Cursor bioluminescent trail ═══
+    (function() {
+      var trailContainer = document.createElement('div');
+      trailContainer.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9998;overflow:hidden;';
+      trailContainer.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(trailContainer);
+
+      var lastX = 0, lastY = 0, throttle = false;
+
+      document.addEventListener('mousemove', function(e) {
+        if (throttle) return;
+        throttle = true;
+        setTimeout(function() { throttle = false; }, 50);
+
+        var dx = e.clientX - lastX;
+        var dy = e.clientY - lastY;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        // Only emit if cursor moved enough
+        if (dist < 8) return;
+
+        var dot = document.createElement('div');
+        dot.style.cssText = 'position:absolute;width:4px;height:4px;border-radius:50%;pointer-events:none;' +
+          'background:var(--biolum);opacity:0.5;' +
+          'box-shadow:0 0 6px var(--biolum),0 0 12px var(--glow-green);' +
+          'left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
+          'transition:opacity 1.5s ease-out,transform 1.5s ease-out;';
+        trailContainer.appendChild(dot);
+
+        // Trigger fade
+        requestAnimationFrame(function() {
+          dot.style.opacity = '0';
+          dot.style.transform = 'translateY(-8px) scale(0.3)';
+        });
+
+        // Cleanup
+        setTimeout(function() { dot.remove(); }, 1600);
+      });
+
+      // Respect reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        trailContainer.style.display = 'none';
+      }
+    })();
+
+    // ═══ Section heading single-pulse glow ═══
+    (function() {
+      var headingObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('heading-pulse');
+            headingObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.section-heading').forEach(function(el) {
+        headingObserver.observe(el);
+      });
+    })();
+
+    // ═══ Page transition — darken on navigate ═══
+    (function() {
+      var overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:#030806;opacity:0;pointer-events:none;' +
+        'z-index:99999;transition:opacity 0.3s ease-in;';
+      document.body.appendChild(overlay);
+
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        // Only internal non-hash links
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+
+        e.preventDefault();
+        overlay.style.opacity = '1';
+        setTimeout(function() {
+          window.location.href = href;
+        }, 300);
+      });
+    })();
+  </script>
+
+  <style>
+    /* ═══ Hero caustic text effect ═══ */
+    .hero-caustic-text {
+      position: relative;
+      background: linear-gradient(
+        90deg,
+        rgba(212, 232, 223, 0.85) 0%,
+        var(--biolum) 20%,
+        rgba(212, 232, 223, 0.9) 40%,
+        rgba(0, 255, 163, 0.7) 60%,
+        rgba(212, 232, 223, 0.85) 80%,
+        var(--biolum) 100%
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: caustic-sweep 8s ease-in-out infinite;
+      filter: drop-shadow(0 0 30px rgba(0, 255, 163, 0.3))
+              drop-shadow(0 4px 60px rgba(0, 255, 163, 0.15));
+    }
+
+    @keyframes caustic-sweep {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle {
+      color: var(--text-dim);
+      opacity: 0.7;
+      text-shadow: 0 0 20px rgba(0, 255, 163, 0.1);
+    }
+
+    /* Emphasis word in tagline */
+    .emphasis-word {
+      color: var(--biolum);
+      -webkit-text-fill-color: var(--biolum);
+      opacity: 1;
+      text-shadow: 0 0 12px var(--glow-green);
+      font-style: italic;
+    }
+
+    /* ═══ Section heading single-pulse glow ═══ */
+    .section-heading {
+      transition: text-shadow 0.6s ease-out;
+    }
+
+    .section-heading.heading-pulse {
+      animation: heading-glow 1.5s ease-out forwards;
+    }
+
+    @keyframes heading-glow {
+      0% { text-shadow: none; }
+      30% { text-shadow: 0 0 20px var(--glow-green), 0 0 40px var(--glow-green); }
+      100% { text-shadow: none; }
+    }
+
+    /* ═══ Dive indicator glow ═══ */
+    .organism-border {
+      background: conic-gradient(
+        from var(--organism-angle, 0deg),
+        var(--biolum) 0%,
+        transparent 15%,
+        transparent 85%,
+        var(--biolum-cyan) 100%
+      );
+      border-radius: inherit;
+      animation: organism-creep 6s linear infinite;
+      animation-delay: var(--organism-delay, 0s);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      padding: 1px;
+    }
+
+    @keyframes organism-creep {
+      to { --organism-angle: 360deg; }
+    }
+
+    @property --organism-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* Organism orb drift */
+    .organism-orb {
+      animation: orb-drift 5s ease-in-out infinite;
+      animation-delay: var(--drift-delay, 0s);
+    }
+
+    @keyframes orb-drift {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(-2px, 1px); }
+      66% { transform: translate(1px, -2px); }
+    }
+
+    /* ═══ Reduced motion ═══ */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-caustic-text {
+        animation: none;
+        background: none;
+        -webkit-text-fill-color: var(--text);
+      }
+      .section-heading {
+        animation: none;
+      }
+      .organism-border {
+        animation: none;
+      }
+      .organism-orb {
+        animation: none;
+      }
+      .ambient-particles {
+        display: none;
+      }
+      .dive-glow {
+        text-shadow: none;
+      }
+    }
+
+    /* ═══ Dive indicator glow ═══ */
+    .dive-glow {
+      text-shadow: 0 0 10px var(--glow-green), 0 0 20px var(--glow-green);
+    }
+
+    /* ═══ Ambient underwater particles (CSS-only) ═══ */
+    .ambient-particles {
+      opacity: 0;
+      transition: opacity 1s ease-out;
+    }
+
+    .ambient-particles .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--biolum);
+      opacity: 0.4;
+      box-shadow: 0 0 6px var(--biolum), 0 0 12px var(--glow-green);
+      animation: ambient-drift var(--duration, 20s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .ambient-particles .particle.lg {
+      width: 4px;
+      height: 4px;
+      opacity: 0.25;
+      background: var(--biolum-cyan);
+      box-shadow: 0 0 8px var(--biolum-cyan), 0 0 16px var(--glow-cyan);
+    }
+
+    @keyframes ambient-drift {
+      0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0.4;
+      }
+      25% {
+        transform: translate(calc(var(--drift-x, 20px) * 0.5), calc(var(--drift-y, -30px) * 0.3));
+      }
+      50% {
+        transform: translate(var(--drift-x, 20px), var(--drift-y, -30px));
+        opacity: 0.6;
+      }
+      75% {
+        transform: translate(calc(var(--drift-x, 20px) * 0.7), calc(var(--drift-y, -30px) * 0.8));
+      }
+    }
+  </style>
+</BaseLayout>

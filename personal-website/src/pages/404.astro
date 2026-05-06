@@ -1,0 +1,29 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Lost in the deep — 404">
+  <main class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+    <!-- Lost orb -->
+    <div class="relative w-20 h-20 mb-12">
+      <div class="absolute inset-0 rounded-full bg-biolum-cyan/5 animate-breathe" />
+      <div class="absolute inset-4 rounded-full bg-biolum-cyan/10 animate-breathe" style="animation-delay: 0.5s;" />
+      <div class="absolute inset-[35%] rounded-full bg-biolum-cyan/30 shadow-[0_0_20px_var(--glow-cyan)]" />
+    </div>
+
+    <h1 class="font-display font-bold text-fluid-xl text-text mb-4">
+      Signal lost
+    </h1>
+    <p class="text-text-dim mb-8 max-w-sm">
+      This depth doesn't exist. You've drifted beyond the mapped zones.
+    </p>
+    <a
+      href="/"
+      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
+             border border-biolum/30 text-biolum text-sm font-mono
+             hover:shadow-[0_0_20px_var(--glow-green)] transition-all duration-500"
+    >
+      ← Return to surface
+    </a>
+  </main>
+</BaseLayout>

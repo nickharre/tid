@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --void: #030806;
+    --deep: #0a1210;
+    --water: #0f1f1a;
+    --text: #d4e8df;
+    --text-dim: #5a7a6d;
+    --biolum: #00ffa3;
+    --biolum-cyan: #00e5ff;
+    --biolum-purple: #b388ff;
+    --warm: #ff6b35;
+    --glow-green: rgba(0, 255, 163, 0.15);
+    --glow-cyan: rgba(0, 229, 255, 0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-dim) var(--void);
+  }
+
+  body {
+    background-color: var(--void);
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--glow-green);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--biolum);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: 'Syne', system-ui, sans-serif;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px var(--glow-green), 0 0 40px var(--glow-green);
+  }
+
+  .glow-border {
+    box-shadow: 0 0 15px var(--glow-green), inset 0 0 15px var(--glow-green);
+  }
+
+  .depth-zone {
+    @apply min-h-screen relative flex flex-col items-center justify-center px-4;
+  }
+
+  /* Animated gradient border */
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .biolum-border {
+    position: relative;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(var(--angle), var(--biolum), var(--biolum-cyan), transparent, transparent);
+    animation: border-rotate 4s linear infinite;
+  }
+
+  .biolum-border > * {
+    background: var(--deep);
+    border-radius: 11px;
+  }
+
+  @keyframes border-rotate {
+    to { --angle: 360deg; }
+  }
+
+  /* Sonar ping */
+  .sonar-ping {
+    animation: sonar 1.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes sonar {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 var(--glow-green);
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 0 10px transparent;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  /* Breathing pulse */
+  @keyframes breathe {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+  }
+
+  .breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  /* Float drift */
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(3px, -5px); }
+    50% { transform: translate(-2px, 3px); }
+    75% { transform: translate(4px, 2px); }
+  }
+
+  .drift {
+    animation: drift 8s ease-in-out infinite;
+  }
+}

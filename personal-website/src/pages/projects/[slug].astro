@@ -1,0 +1,72 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+import '../../styles/prose.css';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<PageLayout title={`${project.data.title} — Nicholas Harre`} description={project.data.description}>
+  <article class="max-w-3xl mx-auto">
+    <!-- Header -->
+    <header class="mb-16">
+      <h1 class="font-display font-bold text-fluid-2xl text-text leading-tight mb-6">
+        {project.data.title}
+      </h1>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        {project.data.tags.map((tag: string) => (
+          <span class="text-xs px-3 py-1 rounded-full border border-biolum/20 text-biolum/70">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- Links -->
+      <div class="flex gap-4 mb-12">
+        {project.data.liveUrl && (
+          <a
+            href={project.data.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-biolum/10 border border-biolum/30
+                   text-biolum rounded-lg text-sm font-medium
+                   hover:bg-biolum/20 hover:shadow-[0_0_20px_var(--glow-green)] transition-all duration-500"
+          >
+            Live Site ↗
+          </a>
+        )}
+        {project.data.sourceUrl && (
+          <a
+            href={project.data.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-text-dim/20
+                   text-text-dim rounded-lg text-sm
+                   hover:border-biolum-cyan/30 hover:text-biolum-cyan transition-all duration-500"
+          >
+            Source Code ↗
+          </a>
+        )}
+      </div>
+
+      <!-- Glowing divider -->
+      <div class="h-px bg-gradient-to-r from-transparent via-biolum/40 to-transparent" />
+    </header>
+
+    <!-- Content -->
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</PageLayout>

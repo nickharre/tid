@@ -99,11 +99,6 @@ export default function WaterSurface() {
     varying vec3 vWorldPos;
     varying vec3 vNormal;
 
-    // Simple hash noise for sparkles
-    float hashNoise(vec2 v) {
-      return fract(sin(dot(v, vec2(12.9898, 78.233))) * 43758.5453);
-    }
-
     // Caustic pattern — overlapping wave interference
     float causticPattern(vec2 uv, float time) {
       float c = 0.0;

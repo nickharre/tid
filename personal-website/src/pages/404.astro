@@ -11,14 +11,14 @@ import BaseLayout from '@layouts/BaseLayout.astro';
       <div class="absolute inset-[35%] rounded-full bg-biolum-cyan/30 shadow-[0_0_20px_var(--glow-cyan)]" />
     </div>
 
-    <h1 class="font-display font-bold text-fluid-xl text-text mb-4">
+    <h1 class="font-display text-fluid-xl text-text mb-4">
       Signal lost
     </h1>
     <p class="text-text-dim mb-8 max-w-sm">
       This depth doesn't exist. You've drifted beyond the mapped zones.
     </p>
     <a
-      href="/"
+      href={`${import.meta.env.BASE_URL}`}
       class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full
              border border-biolum/30 text-biolum text-sm font-mono
              hover:shadow-[0_0_20px_var(--glow)] transition-all duration-500"

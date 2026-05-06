@@ -31,7 +31,7 @@ const config: Config = {
         'fluid-xl': 'clamp(1.5rem, 1.2rem + 1.5vw, 2rem)',
         'fluid-2xl': 'clamp(2rem, 1.5rem + 2.5vw, 3rem)',
         'fluid-3xl': 'clamp(2.5rem, 2rem + 3vw, 4rem)',
-        'fluid-hero': 'clamp(3.5rem, 2.5rem + 5vw, 8rem)',
+        'fluid-hero': 'clamp(4.5rem, 3rem + 6vw, 9rem)',
       },
       animation: {
         'breathe': 'breathe 4s ease-in-out infinite',

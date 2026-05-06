@@ -15,11 +15,11 @@ const { project } = Astro.props;
 const { Content } = await project.render();
 ---
 
-<PageLayout title={`${project.data.title} — Nicholas Harre`} description={project.data.description}>
+<PageLayout title={`${project.data.title} — Nick Harré`} description={project.data.description}>
   <article class="max-w-3xl mx-auto">
     <!-- Header -->
     <header class="mb-16">
-      <h1 class="font-display font-bold text-fluid-2xl text-text leading-tight mb-6">
+      <h1 class="font-display text-fluid-2xl text-text leading-tight mb-6">
         {project.data.title}
       </h1>
 
